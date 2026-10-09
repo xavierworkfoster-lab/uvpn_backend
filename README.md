@@ -24,13 +24,27 @@ Copy `.env.example` to `.env`. Set distinct random JWT secrets of at least 32 ch
 ## Local development
 
 ```bash
-Copy-Item .env.example .env
+cp .env.example .env
 npm ci
 docker compose up -d postgres
 npx prisma migrate deploy
 npx prisma generate
 npm run start:dev
 ```
+
+### Ubuntu 22.04 Node setup
+
+The project requires Node.js 24. The distro-provided `nodejs` package may be too old. Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) if it is not already available, then from a new terminal and the project directory run:
+
+```bash
+nvm install
+nvm use
+node --version
+npm --version
+npm ci
+```
+
+`.nvmrc` selects Node 24. The repository's `.npmrc` enables strict engine checks, so an unsupported Node or npm version fails early with a clear `EBADENGINE` message. Node 12 cannot run Prisma 7 or this dependency tree.
 
 For the full containerized stack:
 
