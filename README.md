@@ -21,6 +21,8 @@ Production-oriented modular monolith for the UVPN Windows VPN client. It provide
 
 Copy `.env.example` to `.env`. Set distinct random JWT secrets of at least 32 characters. Set `PUBLIC_API_URL` to a public HTTPS base URL before accepting real provider callbacks. Keep `.env` and all real credentials out of source control.
 
+Compose publishes PostgreSQL on `127.0.0.1:5433` by default so it can coexist with a host PostgreSQL service using `5432`. Change `POSTGRES_HOST_PORT` in `.env` if `5433` is also occupied. If you run Prisma or the Nest app directly on the host, set `DATABASE_URL` to that same host port. The Compose API and migration containers use the internal `postgres:5432` address and do not need a change.
+
 ## Local development
 
 ```bash
